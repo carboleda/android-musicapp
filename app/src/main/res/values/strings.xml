@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MusicApp</string>
+    <string name="login_title">MusicApp</string>
+    <string name="start_session">Iniciar sesión</string>
+    <string name="username">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="forgot_password">Olvidé mi contraseña</string>
+    <string name="remember_user_on_device">Recordar mi usuario en este dispositivo</string>
+    <string name="dont_have_a_account">No tengo una cuenta</string>
+</resources>

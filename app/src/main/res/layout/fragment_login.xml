@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?actionBarSize">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_title"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/textview_default_margin_bottom"
+        android:textAppearance="?android:textAppearanceLarge"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/start_session"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/textview_default_margin_bottom"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/username"
+        android:layout_gravity="center_horizontal"
+        android:ems="15"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/textview_default_margin_bottom"
+        android:ems="15"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_password"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/textview_default_margin_bottom"
+        android:textColor="@android:color/holo_red_dark"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remember_user_on_device"/>
+
+        <Space
+            android:layout_width="@dimen/remember_user_switch_space"
+            android:layout_height="wrap_content" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_session"
+        android:layout_gravity="center_horizontal"
+        android:ems="20" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dont_have_a_account"
+        android:layout_gravity="center_horizontal"
+        android:ems="20" />
+
+</LinearLayout>
