@@ -1,6 +1,7 @@
 package co.devhack.musicapp.repository;
 
 import co.devhack.musicapp.domain.dto.SessionDto;
+import io.reactivex.Observable;
 
 /**
  * Created by krlosf on 14/04/18.
@@ -8,6 +9,6 @@ import co.devhack.musicapp.domain.dto.SessionDto;
 
 public interface LastFmAuthRepository {
 
-    SessionDto getMobileSession(String username, String password) throws Exception;
+    Observable<SessionDto> getMobileSession(String username, String password);
 
 }

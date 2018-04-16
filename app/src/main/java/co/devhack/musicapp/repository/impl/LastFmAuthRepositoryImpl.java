@@ -10,8 +10,8 @@ import co.devhack.musicapp.helpers.Constants;
 import co.devhack.musicapp.helpers.Globals;
 import co.devhack.musicapp.helpers.RetrofitSingleton;
 import co.devhack.musicapp.repository.LastFmAuthRepository;
-import retrofit2.Call;
-import retrofit2.Response;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
@@ -23,11 +23,11 @@ public class LastFmAuthRepositoryImpl implements LastFmAuthRepository {
 
     interface AuthServices {
         @POST("2.0/")
-        Call<SessionDto> getMobileSession(@QueryMap Map<String, String> params);
+        Observable<SessionDto> getMobileSession(@QueryMap Map<String, String> params);
     }
 
     @Override
-    public SessionDto getMobileSession(String username, String password) throws Exception {
+    public Observable<SessionDto> getMobileSession(String username, String password) {
         Map<String, String> params = new HashMap<>(0);
         String method = "auth.getMobileSession";
         params.put("method", method);
@@ -42,13 +42,7 @@ public class LastFmAuthRepositoryImpl implements LastFmAuthRepository {
 
         AuthServices authServices = RetrofitSingleton.getInstance().create(AuthServices.class);
 
-        Call<SessionDto> call = authServices.getMobileSession(params);
-        Response<SessionDto> response = call.execute();
-
-        if(response.isSuccessful()) {
-            return response.body();
-        } else {
-            throw new Exception(response.message());
-        }
+        return authServices.getMobileSession(params)
+                .subscribeOn(Schedulers.io());
     }
 }

@@ -1,8 +1,6 @@
 package co.devhack.musicapp.domain.usecase.impl;
 
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -13,8 +11,6 @@ import co.devhack.musicapp.domain.usecase.TrackUseCase;
 import co.devhack.musicapp.helpers.Callback;
 import co.devhack.musicapp.helpers.Globals;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by krlosf on 15/04/18.
  */
@@ -24,7 +20,7 @@ public class TrackUseCaseImplTest {
     @Test
     public void firstGetMobileSession() throws Exception {
         LastFmAuthUseCase lastFmAuthUseCase = new LastFmAuthUseCaseImpl();
-        lastFmAuthUseCase.getMobileSession("carboleda", "1234abcd*", new Callback<SessionDto>() {
+        /*lastFmAuthUseCase.getMobileSession("carboleda", "1234abcd*", new Callback<SessionDto>() {
             @Override
             public void success(SessionDto result) {
                 System.out.println(result.getSession().getKey());
@@ -34,11 +30,11 @@ public class TrackUseCaseImplTest {
             }
 
             @Override
-            public void error(Exception error) {
+            public void error(Throwable error) {
                 System.err.println(error);
                 Assert.assertNull(error);
             }
-        });
+        });*/
     }
 
     @Test
@@ -51,7 +47,7 @@ public class TrackUseCaseImplTest {
             }
 
             @Override
-            public void error(Exception error) {
+            public void error(Throwable error) {
                 Assert.assertNull(error);
             }
         });
@@ -67,7 +63,7 @@ public class TrackUseCaseImplTest {
             }
 
             @Override
-            public void error(Exception error) {
+            public void error(Throwable error) {
                 Assert.assertNull(error);
             }
         });

@@ -7,5 +7,5 @@ package co.devhack.musicapp.helpers;
 public interface Callback<T> {
     void success(T result);
 
-    void error(Exception error);
+    void error(Throwable error);
 }

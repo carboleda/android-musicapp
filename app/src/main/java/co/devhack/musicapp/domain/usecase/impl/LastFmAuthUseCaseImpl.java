@@ -6,6 +6,9 @@ import co.devhack.musicapp.helpers.Callback;
 import co.devhack.musicapp.helpers.ThreadExecutor;
 import co.devhack.musicapp.repository.LastFmAuthRepository;
 import co.devhack.musicapp.repository.impl.LastFmAuthRepositoryImpl;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by krlosf on 15/04/18.
@@ -20,23 +23,7 @@ public class LastFmAuthUseCaseImpl implements LastFmAuthUseCase {
     }
 
     @Override
-    public void getMobileSession(final String username, final String password,
-                                 final Callback<SessionDto> callback) {
-        new ThreadExecutor<SessionDto>()
-                .execute(new ThreadExecutor.Task<SessionDto>() {
-                    @Override
-                    public SessionDto execute() throws Exception {
-                        return lastFmAuthRepository.getMobileSession(username, password);
-                    }
-
-                    @Override
-                    public void finish(Exception error, SessionDto result) {
-                        if(error == null) {
-                            callback.success(result);
-                        } else {
-                            callback.error(error);
-                        }
-                    }
-                });
+    public Observable<SessionDto> getMobileSession(final String username, final String password) {
+        return lastFmAuthRepository.getMobileSession(username, password);
     }
 }

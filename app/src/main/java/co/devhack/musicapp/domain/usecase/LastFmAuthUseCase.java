@@ -1,7 +1,7 @@
 package co.devhack.musicapp.domain.usecase;
 
 import co.devhack.musicapp.domain.dto.SessionDto;
-import co.devhack.musicapp.helpers.Callback;
+import io.reactivex.Observable;
 
 /**
  * Created by krlosf on 14/04/18.
@@ -9,6 +9,6 @@ import co.devhack.musicapp.helpers.Callback;
 
 public interface LastFmAuthUseCase {
 
-    void getMobileSession(String username, String password, Callback<SessionDto> callback);
+    Observable<SessionDto> getMobileSession(String username, String password);
 
 }
