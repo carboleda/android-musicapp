@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView android:id="@+id/imgTrack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="100dp"
+        android:minHeight="100dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <TextView android:id="@+id/tvTrackName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Losing my religion"
+            android:textStyle="bold"/>
+
+        <TextView android:id="@+id/tvArtistName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REM"
+            android:layout_below="@id/tvTrackName"/>
+
+        <TextView android:id="@+id/tvDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3:52 mins"
+            android:layout_below="@id/tvArtistName"/>
+
+        <ImageView android:id="@+id/btnLove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_favorite_red_24dp"
+            android:layout_alignBottom="@+id/tvDuration"
+            android:layout_alignParentEnd="true" />
+
+        <TextView android:id="@+id/tvListeners"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.140k"
+            android:layout_toLeftOf="@id/btnLove"
+            android:layout_alignBottom="@+id/tvDuration" />
+
+    </RelativeLayout>
+
+</FrameLayout>
