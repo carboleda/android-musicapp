@@ -23,17 +23,18 @@
         android:layout_marginBottom="@dimen/textview_default_margin_bottom"
         android:textAppearance="?android:textAppearanceMedium"/>
 
-    <EditText
+    <EditText android:id="@+id/etUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/username"
         android:layout_gravity="center_horizontal"
         android:ems="15"/>
 
-    <EditText
+    <EditText android:id="@+id/etPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/password"
+        android:inputType="textPassword"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/textview_default_margin_bottom"
         android:ems="15"/>
@@ -61,20 +62,20 @@
             android:layout_width="@dimen/remember_user_switch_space"
             android:layout_height="wrap_content" />
 
-        <Switch
+        <Switch android:id="@+id/swRememberUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
-    <Button
+    <Button android:id="@+id/btnStartSession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start_session"
         android:layout_gravity="center_horizontal"
         android:ems="20" />
 
-    <Button
+    <Button android:id="@+id/btnDotnHaveAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dont_have_a_account"
