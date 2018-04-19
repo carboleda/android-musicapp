@@ -1,4 +1,4 @@
-package co.devhack.musicapp;
+package co.devhack.musicapp.presetation.view.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,10 @@ import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+import co.devhack.musicapp.R;
+import co.devhack.musicapp.presetation.contract.LoginContract;
+
+public class LoginActivity extends AppCompatActivity implements LoginContract.View, View.OnClickListener {
 
     TextView etUser;
     TextView etPassword;
@@ -42,5 +45,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnDotnHaveAccount:
                 break;
         }
+    }
+
+    @Override
+    public void disableButtons() {
+        btnStartSession.setEnabled(false);
+        btnDotnHaveAccount.setEnabled(false);
+        swRememberUser.setEnabled(false);
+    }
+
+    @Override
+    public void enableButtons() {
+        btnStartSession.setEnabled(true);
+        btnDotnHaveAccount.setEnabled(true);
+        swRememberUser.setEnabled(true);
+    }
+
+    @Override
+    public void goToMain() {
+
+    }
+
+    @Override
+    public void showLoginErrorMessage(Throwable error) {
+
+    }
+
+    @Override
+    public void goToCreateAccount() {
+
     }
 }
