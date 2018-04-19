@@ -28,8 +28,15 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:27.+'
     compile 'com.android.support:design:27.+'
+
+    //GOOGLE AND PLAY SERVICES
+    compile 'com.google.code.gson:gson:2.8.2'
+    //GOOGLE AND PLAY SERVICES
+
+    //SQUAREUP
     compile 'com.squareup.retrofit2:retrofit:2.4.0'
     compile 'com.squareup.retrofit2:converter-gson:2.4.0'
-    compile 'com.google.code.gson:gson:2.8.2'
+    //compile 'com.squareup.okhttp:okhttp:2.5.0'
+    //SQUAREUP
     testCompile 'junit:junit:4.12'
 }
