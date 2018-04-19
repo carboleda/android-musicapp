@@ -24,7 +24,7 @@ public interface LoginContract {
 
         void onLogin(String username, String password, boolean remember);
 
-        void onDotnHaveAccount();
+        void onDontHaveAccount();
 
     }
 

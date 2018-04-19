@@ -23,21 +23,29 @@
         android:layout_marginBottom="@dimen/textview_default_margin_bottom"
         android:textAppearance="?android:textAppearanceMedium"/>
 
-    <EditText android:id="@+id/etUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/username"
-        android:layout_gravity="center_horizontal"
-        android:ems="15"/>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputEditText android:id="@+id/etUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/username"
+            android:layout_gravity="center_horizontal"
+            android:ems="15"/>
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/textview_default_margin_bottom"
-        android:ems="15"/>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputEditText android:id="@+id/etPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/textview_default_margin_bottom"
+            android:ems="15"/>
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -75,7 +83,7 @@
         android:layout_gravity="center_horizontal"
         android:ems="20" />
 
-    <Button android:id="@+id/btnDotnHaveAccount"
+    <Button android:id="@+id/btnDontHaveAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dont_have_a_account"
