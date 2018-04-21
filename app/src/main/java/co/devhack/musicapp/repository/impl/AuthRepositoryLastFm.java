@@ -12,13 +12,14 @@ import co.devhack.musicapp.repository.LastFmAuthRepository;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
  * Created by krlosf on 15/04/18.
  */
 
-public class LastFmAuthRepositoryImpl implements LastFmAuthRepository {
+public class AuthRepositoryLastFm implements LastFmAuthRepository {
 
     interface AuthServices {
         @POST("2.0/")

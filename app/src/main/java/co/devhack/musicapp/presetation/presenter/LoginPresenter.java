@@ -17,7 +17,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void onLogin(String username, String password, boolean remember) {
         view.disableButtons();
-
         //TODO LLAMAR EL CASO DE USO
 
         view.enableButtons();
