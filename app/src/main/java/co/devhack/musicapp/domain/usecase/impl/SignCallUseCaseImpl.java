@@ -4,8 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import co.devhack.musicapp.domain.usecase.SignCallUseCase;
-
-import static co.devhack.musicapp.helpers.StringUtilities.md5;
+import co.devhack.musicapp.helpers.StringUtilities;
 
 /**
  * Created by krlosf on 15/04/18.
@@ -34,7 +33,7 @@ public class SignCallUseCaseImpl implements SignCallUseCase {
             b.append(entry.getValue());
         }
         b.append(secret);
-        return md5(b.toString());
+        return StringUtilities.md5(b.toString());
     }
 
 }

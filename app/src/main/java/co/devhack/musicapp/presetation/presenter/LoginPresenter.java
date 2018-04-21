@@ -1,5 +1,9 @@
 package co.devhack.musicapp.presetation.presenter;
 
+import co.devhack.musicapp.domain.model.MobileSessionResponse;
+import co.devhack.musicapp.domain.usecase.LastFmAuthUseCase;
+import co.devhack.musicapp.domain.usecase.impl.LastFmAuthUseCaseImpl;
+import co.devhack.musicapp.helpers.Callback;
 import co.devhack.musicapp.presetation.contract.LoginContract;
 
 /**
@@ -9,24 +13,31 @@ import co.devhack.musicapp.presetation.contract.LoginContract;
 public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.View view;
+    private LastFmAuthUseCase lastFmAuthUseCase;
 
     public LoginPresenter(LoginContract.View view) {
         this.view = view;
+        this.lastFmAuthUseCase = new LastFmAuthUseCaseImpl();
     }
 
     @Override
     public void onLogin(String username, String password, boolean remember) {
         view.disableButtons();
 
-        //TODO LLAMAR EL CASO DE USO
+        lastFmAuthUseCase.getMobileSession(username, password,
+                new Callback<MobileSessionResponse.Session>() {
+            @Override
+            public void success(MobileSessionResponse.Session session) {
+                view.enableButtons();
+                view.goToMain();
+            }
 
-        view.enableButtons();
-
-        //Si ok
-        view.goToMain();
-
-        //Si error
-        view.showLoginErrorMessage(null);
+            @Override
+            public void error(Exception error) {
+                view.enableButtons();
+                view.showLoginErrorMessage(error);
+            }
+        });
     }
 
     @Override

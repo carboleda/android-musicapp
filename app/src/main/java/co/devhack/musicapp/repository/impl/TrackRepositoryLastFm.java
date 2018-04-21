@@ -20,8 +20,9 @@ import retrofit2.http.POST;
  * Created by krlosf on 15/04/18.
  */
 
-public class TrackRepositoryImpl implements TrackRepository {
+public class TrackRepositoryLastFm implements TrackRepository {
 
+    //RestAdapter de Retrofit
     interface TrackServices {
         @FormUrlEncoded
         @POST("2.0/")
@@ -37,13 +38,13 @@ public class TrackRepositoryImpl implements TrackRepository {
         Map<String, String> params = new HashMap<>(0);
         String method = "track.love";
         params.put("method", method);
-        params.put("api_key", Globals.API_KEY);
+        params.put("api_key", Constants.API_KEY);
         params.put("sk", Globals.SESSION_KEY);
         params.put("artist", artist);
         params.put("track", track);
 
         SignCallUseCase signCallUseCase = SignCallUseCaseImpl.getInstance();
-        String apiSig = signCallUseCase.signature(method, params, Globals.SECRET);
+        String apiSig = signCallUseCase.signature(method, params, Constants.SECRET);
         params.put("api_sig", apiSig);
         params.put("format", Constants.API_RESPONSE_FORMAT);
 
@@ -64,13 +65,13 @@ public class TrackRepositoryImpl implements TrackRepository {
         Map<String, String> params = new HashMap<>(0);
         String method = "track.unlove";
         params.put("method", method);
-        params.put("api_key", Globals.API_KEY);
+        params.put("api_key", Constants.API_KEY);
         params.put("sk", Globals.SESSION_KEY);
         params.put("artist", artist);
         params.put("track", track);
 
         SignCallUseCase signCallUseCase = SignCallUseCaseImpl.getInstance();
-        String apiSig = signCallUseCase.signature(method, params, Globals.SECRET);
+        String apiSig = signCallUseCase.signature(method, params, Constants.SECRET);
         params.put("api_sig", apiSig);
         params.put("format", Constants.API_RESPONSE_FORMAT);
 

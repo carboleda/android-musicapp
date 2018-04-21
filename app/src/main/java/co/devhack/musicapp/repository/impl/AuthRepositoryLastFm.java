@@ -18,7 +18,7 @@ import retrofit2.http.QueryMap;
  * Created by krlosf on 15/04/18.
  */
 
-public class LastFmAuthRepositoryImpl implements LastFmAuthRepository {
+public class AuthRepositoryLastFm implements LastFmAuthRepository {
 
     interface AuthServices {
         @POST("2.0/")

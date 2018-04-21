@@ -9,6 +9,6 @@ import co.devhack.musicapp.helpers.Callback;
 
 public interface LastFmAuthUseCase {
 
-    void getMobileSession(String username, String password, Callback<MobileSessionResponse> callback);
+    void getMobileSession(String username, String password, Callback<MobileSessionResponse.Session> callback);
 
 }

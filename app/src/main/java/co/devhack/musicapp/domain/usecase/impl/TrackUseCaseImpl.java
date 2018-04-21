@@ -4,7 +4,6 @@ import co.devhack.musicapp.domain.usecase.TrackUseCase;
 import co.devhack.musicapp.helpers.Callback;
 import co.devhack.musicapp.helpers.ThreadExecutor;
 import co.devhack.musicapp.repository.TrackRepository;
-import co.devhack.musicapp.repository.impl.TrackRepositoryImpl;
 
 /**
  * Created by krlosf on 15/04/18.
