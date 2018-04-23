@@ -4,6 +4,7 @@ import co.devhack.musicapp.domain.usecase.TrackUseCase;
 import co.devhack.musicapp.helpers.Callback;
 import co.devhack.musicapp.helpers.ThreadExecutor;
 import co.devhack.musicapp.repository.TrackRepository;
+import co.devhack.musicapp.repository.impl.TrackRepositoryLastFm;
 
 /**
  * Created by krlosf on 15/04/18.
@@ -13,8 +14,8 @@ public class TrackUseCaseImpl implements TrackUseCase {
 
     private TrackRepository trackRepository;
 
-    public TrackUseCaseImpl(TrackRepository trackRepository) {
-        this.trackRepository = trackRepository;
+    public TrackUseCaseImpl() {
+        this.trackRepository = new TrackRepositoryLastFm();
     }
 
     @Override
