@@ -11,6 +11,8 @@ import java.util.List;
 public class Track {
     private String name;
     private String url;
+    private Integer duration;
+    private Integer listeners;
     private Artist artist;
     @SerializedName("image")
     private List<Image> images;
@@ -29,6 +31,22 @@ public class Track {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public Integer getListeners() {
+        return listeners;
+    }
+
+    public void setListeners(Integer listeners) {
+        this.listeners = listeners;
     }
 
     public Artist getArtist() {

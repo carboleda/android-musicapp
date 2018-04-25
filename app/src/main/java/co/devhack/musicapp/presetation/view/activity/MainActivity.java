@@ -3,6 +3,8 @@ package co.devhack.musicapp.presetation.view.activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import co.devhack.musicapp.R;
+import co.devhack.musicapp.presetation.view.fragment.TopTracksFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,8 +46,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TextView tvParam = findViewById(R.id.tvParam);
-        tvParam.setText(getIntent().getStringExtra("param1"));
+        //Se obtiene el primer item del menu para mostarlo como opcion por defecto
+        MenuItem firstItem = navigationView.getMenu().getItem(0);
+        onNavigationItemSelected(firstItem);
     }
 
     @Override
@@ -86,14 +89,24 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
+        if (id == R.id.nav_top_tracks) {
+            replaceFragment(TopTracksFragment.getInstance(), true);
+        } else if (id == R.id.nav_loved_tracks) {
+            //TODO replaceFragment(LovedTracksFragment.getInstance(), true);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void replaceFragment(Fragment fragment, boolean addToBackstack) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, fragment);
+        if(addToBackstack) {
+            fragmentTransaction.addToBackStack(null);
+        }
+
+        fragmentTransaction.commit();
     }
 }

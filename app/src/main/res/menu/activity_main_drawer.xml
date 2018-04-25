@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_camera"
+        android:id="@+id/nav_top_tracks"
         android:icon="@drawable/ic_menu_camera"
-        android:title="Import" />
+        android:title="@string/top_tracks" />
     <item
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_loved_tracks"
         android:icon="@drawable/ic_menu_gallery"
-        android:title="Gallery" />
+        android:title="@string/my_loved_tracks" />
 
 </menu>
