@@ -23,7 +23,7 @@ public class TopTracksResponse {
     public class Tracks {
 
         @SerializedName("track")
-        public List<Track> lstTracks;
+        private List<Track> lstTracks;
 
         public List<Track> getLstTracks() {
             return lstTracks;

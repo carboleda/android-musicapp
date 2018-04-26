@@ -22,6 +22,8 @@ public interface LoginContract {
 
     interface Presenter {
 
+        void validateSession();
+
         void onLogin(String username, String password, boolean remember);
 
         void onDontHaveAccount();

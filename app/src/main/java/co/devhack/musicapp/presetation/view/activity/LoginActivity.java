@@ -37,6 +37,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
         btnStartSession.setOnClickListener(this);
         btnDotnHaveAccount.setOnClickListener(this);
+
+        presenter.validateSession();
     }
 
     @Override

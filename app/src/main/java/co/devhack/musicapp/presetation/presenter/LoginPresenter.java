@@ -21,6 +21,23 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
+    public void validateSession() {
+        lastFmAuthUseCase.validateSession(new Callback<Boolean>() {
+            @Override
+            public void success(Boolean isAuth) {
+                if (isAuth) {
+                    view.goToMain();
+                }
+            }
+
+            @Override
+            public void error(Exception error) {
+                //view.showValidateSessionError(error);
+            }
+        });
+    }
+
+    @Override
     public void onLogin(String username, String password, boolean remember) {
         view.disableButtons();
 

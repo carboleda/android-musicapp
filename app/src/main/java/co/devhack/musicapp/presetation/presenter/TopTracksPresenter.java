@@ -18,7 +18,7 @@ public class TopTracksPresenter implements TopTracksContract.Presenter {
 
     private TopTracksContract.View view;
     private GeoUseCase geoUseCase;
-    private List<Track> lstTracks;
+    private final List<Track> lstTracks;
 
     public TopTracksPresenter(TopTracksContract.View view) {
         this.view = view;
@@ -33,6 +33,10 @@ public class TopTracksPresenter implements TopTracksContract.Presenter {
         geoUseCase.getTopTracks("colombia", new Callback<TopTracksResponse>() {
             @Override
             public void success(TopTracksResponse result) {
+                //Actualizar la lista con los nuevos items
+                lstTracks.clear();
+                lstTracks.addAll(result.getTracks().getLstTracks());
+
                 view.refreshTracks();
                 view.hideLoadingIndicator();
             }

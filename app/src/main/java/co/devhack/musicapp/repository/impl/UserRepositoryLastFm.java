@@ -9,9 +9,8 @@ import co.devhack.musicapp.helpers.RetrofitSingleton;
 import co.devhack.musicapp.repository.UserRepository;
 import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by krlosf on 23/04/18.
@@ -21,9 +20,8 @@ public class UserRepositoryLastFm implements UserRepository {
 
     //RestAdapter de Retrofit
     interface UserServices {
-        @FormUrlEncoded
         @GET("2.0/")
-        Call<LovedTracksResponse> getLovedTracks(@FieldMap Map<String, String> params);
+        Call<LovedTracksResponse> getLovedTracks(@QueryMap Map<String, String> params);
     }
 
     @Override

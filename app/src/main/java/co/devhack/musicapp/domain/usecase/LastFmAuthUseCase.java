@@ -11,4 +11,6 @@ public interface LastFmAuthUseCase {
 
     void getMobileSession(String username, String password, Callback<MobileSessionResponse.Session> callback);
 
+    void validateSession(Callback<Boolean> callback);
+
 }

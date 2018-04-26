@@ -35,14 +35,11 @@ public class TopTracksFragment extends Fragment implements TopTracksContract.Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_top_tracks, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_top_tracks, container, false);
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        View view = getView();
-
+        //La obtencion de las referencias del layout debe hacerse en este metodo
+        //en lugar del onCreate, ya que aqui se infla el layout y el onCreate se
+        //ejecuta antes que el onCreateView
         if (view != null) {
             presenter = new TopTracksPresenter(this);
 
@@ -51,11 +48,13 @@ public class TopTracksFragment extends Fragment implements TopTracksContract.Vie
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             rvTopTracks.setLayoutManager(layoutManager);
 
-            TopTracksAdapter topTracksAdapter = new TopTracksAdapter(null);
+            TopTracksAdapter topTracksAdapter = new TopTracksAdapter(presenter.getTracks());
             rvTopTracks.setAdapter(topTracksAdapter);
 
             presenter.loadTracks();
         }
+
+        return view;
     }
 
     @Override

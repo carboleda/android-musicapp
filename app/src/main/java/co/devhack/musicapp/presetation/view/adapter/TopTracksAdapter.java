@@ -13,7 +13,9 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import co.devhack.musicapp.R;
+import co.devhack.musicapp.domain.model.Image;
 import co.devhack.musicapp.domain.model.Track;
+import co.devhack.musicapp.helpers.LastFmUtilities;
 
 /**
  * Created by krlosf on 23/04/18.
@@ -37,12 +39,15 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
     public void onBindViewHolder(TrackViewHolder holder, int position) {
         Track track = dataSet.get(position);
 
-        Glide.with(holder.itemView.getContext())
-                .load(track.getImages().get(0))//TODO OBTENER LA IMAGEN CON EL size medium
-                .into(holder.imgTrack);
+        Image image = LastFmUtilities.getImageBySize(track.getImages(), LastFmUtilities.ImageSize.MEDIUM);
+        if(image != null) {
+            Glide.with(holder.itemView.getContext())
+                    .load(image.getUrl())
+                    .into(holder.imgTrack);
+        }
         holder.tvTrackName.setText(track.getName());
         holder.tvArtistName.setText(track.getArtist().getName());
-        holder.tvDuration.setText(String.valueOf(track.getDuration()/60));
+        holder.tvDuration.setText(String.valueOf((double)(track.getDuration()/60.0F)));
         holder.tvListeners.setText(String.valueOf(track.getListeners()));
     }
 
