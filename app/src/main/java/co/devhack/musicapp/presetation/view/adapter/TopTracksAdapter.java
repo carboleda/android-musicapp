@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +15,7 @@ import co.devhack.musicapp.R;
 import co.devhack.musicapp.domain.model.Image;
 import co.devhack.musicapp.domain.model.Track;
 import co.devhack.musicapp.helpers.LastFmUtilities;
+import co.devhack.musicapp.helpers.StringUtilities;
 
 /**
  * Created by krlosf on 23/04/18.
@@ -39,7 +39,7 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
     public void onBindViewHolder(TrackViewHolder holder, int position) {
         Track track = dataSet.get(position);
 
-        Image image = LastFmUtilities.getImageBySize(track.getImages(), LastFmUtilities.ImageSize.MEDIUM);
+        Image image = LastFmUtilities.getImageBySize(track.getImages(), LastFmUtilities.ImageSize.LARGE);
         if(image != null) {
             Glide.with(holder.itemView.getContext())
                     .load(image.getUrl())
@@ -47,8 +47,8 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
         }
         holder.tvTrackName.setText(track.getName());
         holder.tvArtistName.setText(track.getArtist().getName());
-        holder.tvDuration.setText(String.valueOf((double)(track.getDuration()/60.0F)));
-        holder.tvListeners.setText(String.valueOf(track.getListeners()));
+        holder.tvDuration.setText(StringUtilities.formatSecondsToDuration(track.getDuration()));
+        holder.tvListeners.setText(StringUtilities.numberToSuffix(track.getListeners()));
     }
 
     @Override

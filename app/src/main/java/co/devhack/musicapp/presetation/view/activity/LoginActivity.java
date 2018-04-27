@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import co.devhack.musicapp.R;
 import co.devhack.musicapp.presetation.contract.LoginContract;
@@ -81,7 +80,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void goToCreateAccount() {
-        //TODO ABRIR PAGINA DE REGISTRO DE LAST.FM **** RETO: INVESTIGAR SOBRE WEBVIEW
+        Intent intent = new Intent(this, CreateAccountActivity.class);
+        startActivity(intent);
     }
 
     private void onLogin() {

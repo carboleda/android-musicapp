@@ -3,7 +3,12 @@
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
+/.idea/*
+/.settings/org.eclipse.buildship.core.prefs
 .DS_Store
 /build
 /captures
+/app/.settings
+/app/.classpath
 .externalNativeBuild
+.project
