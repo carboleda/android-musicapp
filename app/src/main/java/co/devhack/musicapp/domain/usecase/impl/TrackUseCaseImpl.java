@@ -1,5 +1,6 @@
 package co.devhack.musicapp.domain.usecase.impl;
 
+import co.devhack.musicapp.domain.model.Track;
 import co.devhack.musicapp.domain.usecase.TrackUseCase;
 import co.devhack.musicapp.helpers.Callback;
 import co.devhack.musicapp.helpers.ThreadExecutor;
@@ -16,6 +17,34 @@ public class TrackUseCaseImpl implements TrackUseCase {
 
     public TrackUseCaseImpl() {
         this.trackRepository = new TrackRepositoryLastFm();
+    }
+
+
+    @Override
+    public void loveUnlove(final Track track, final Callback<Boolean> callback) {
+        new ThreadExecutor<Boolean>()
+                .execute(new ThreadExecutor.Task<Boolean>() {
+                    @Override
+                    public Boolean execute() throws Exception {
+                        //Si al usuario ya le gusta el track
+                        if(track.isLove()) {
+                            //Llamamos el metodo unlove
+                            return trackRepository.unlove(track.getArtist().getName(), track.getName());
+                        } else {
+                            //De lo contrario llamos el metodo love
+                            return trackRepository.love(track.getArtist().getName(), track.getName());
+                        }
+                    }
+
+                    @Override
+                    public void finish(Exception error, Boolean result) {
+                        if(error == null) {
+                            callback.success(result);
+                        } else {
+                            callback.error(error);
+                        }
+                    }
+                });
     }
 
     @Override

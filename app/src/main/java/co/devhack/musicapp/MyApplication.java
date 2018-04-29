@@ -2,6 +2,7 @@ package co.devhack.musicapp;
 
 import android.app.Application;
 
+import co.devhack.musicapp.helpers.AppDatabaseSingleton;
 import co.devhack.musicapp.helpers.SharedPreferencesUtil;
 
 /**
@@ -14,5 +15,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SharedPreferencesUtil.init(getApplicationContext());
+        AppDatabaseSingleton.init(getApplicationContext());
     }
 }

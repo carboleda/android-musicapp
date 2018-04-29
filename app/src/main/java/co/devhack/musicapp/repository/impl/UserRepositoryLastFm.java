@@ -1,9 +1,11 @@
 package co.devhack.musicapp.repository.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import co.devhack.musicapp.domain.model.LovedTracksResponse;
+import co.devhack.musicapp.domain.model.Track;
 import co.devhack.musicapp.helpers.Constants;
 import co.devhack.musicapp.helpers.RetrofitSingleton;
 import co.devhack.musicapp.repository.UserRepository;
@@ -25,7 +27,7 @@ public class UserRepositoryLastFm implements UserRepository {
     }
 
     @Override
-    public LovedTracksResponse getLovedTracks(String user) throws Exception {
+    public List<Track> getLovedTracks(String user) throws Exception {
         Map<String, String> params = new HashMap<>(0);
         String method = "user.getLovedTracks";
         params.put("method", method);
@@ -39,10 +41,15 @@ public class UserRepositoryLastFm implements UserRepository {
         Response<LovedTracksResponse> response = call.execute();
 
         if(response.isSuccessful()) {
-            return response.body();
+            LovedTracksResponse lovedTracksResponse = response.body();
+            if(lovedTracksResponse != null) {
+                return lovedTracksResponse.getLovedTracks().getTracks();
+            }
         } else {
             throw new Exception(response.message());
         }
+
+        return null;
     }
 
 }

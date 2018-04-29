@@ -1,5 +1,6 @@
 package co.devhack.musicapp.domain.usecase;
 
+import co.devhack.musicapp.domain.model.Track;
 import co.devhack.musicapp.helpers.Callback;
 
 /**
@@ -7,6 +8,8 @@ import co.devhack.musicapp.helpers.Callback;
  */
 
 public interface TrackUseCase {
+
+    void loveUnlove(Track track, Callback<Boolean> callback);
 
     void love(String artist, String track, Callback<Boolean> callback);
 

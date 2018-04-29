@@ -35,9 +35,7 @@ public interface TopTracksContract {
          */
         List<Track> getTracks();
 
-        void onLove(int position);
-
-        void onUnlove(int position);
+        void onLoveUnlove(int position);
 
     }
 

@@ -18,7 +18,8 @@ import co.devhack.musicapp.presetation.view.adapter.TopTracksAdapter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TopTracksFragment extends Fragment implements TopTracksContract.View {
+public class TopTracksFragment extends Fragment implements TopTracksContract.View,
+        TopTracksAdapter.TrackListener {
 
     private TopTracksContract.Presenter presenter;
     private RecyclerView rvTopTracks;
@@ -48,7 +49,7 @@ public class TopTracksFragment extends Fragment implements TopTracksContract.Vie
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             rvTopTracks.setLayoutManager(layoutManager);
 
-            TopTracksAdapter topTracksAdapter = new TopTracksAdapter(presenter.getTracks());
+            TopTracksAdapter topTracksAdapter = new TopTracksAdapter(presenter.getTracks(), this);
             rvTopTracks.setAdapter(topTracksAdapter);
 
             presenter.loadTracks();
@@ -76,5 +77,15 @@ public class TopTracksFragment extends Fragment implements TopTracksContract.Vie
     @Override
     public void showLoginErrorMessage(Throwable error) {
         //TODO MOSTRAR ERROR
+    }
+
+    @Override
+    public void onTrackLoveUnlove(int position) {
+        presenter.onLoveUnlove(position);
+    }
+
+    @Override
+    public void onTrackSelect(int position) {
+
     }
 }

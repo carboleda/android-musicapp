@@ -17,9 +17,11 @@ public class LastFmUtilities {
     }
 
     public static Image getImageBySize(List<Image> lstImages, String size) {
-        for (Image image : lstImages) {
-            if(image.getSize().equals(size)) {
-                return image;
+        if(lstImages != null) {
+            for (Image image : lstImages) {
+                if (image.getSize().equals(size)) {
+                    return image;
+                }
             }
         }
 

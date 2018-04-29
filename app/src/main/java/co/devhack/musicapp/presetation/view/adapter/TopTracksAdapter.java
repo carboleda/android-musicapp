@@ -1,5 +1,7 @@
 package co.devhack.musicapp.presetation.view.adapter;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +25,17 @@ import co.devhack.musicapp.helpers.StringUtilities;
 
 public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.TrackViewHolder> {
 
-    private List<Track> dataSet;
+    public interface TrackListener {
+        void onTrackLoveUnlove(int position);
+        void onTrackSelect(int position);
+    }
 
-    public TopTracksAdapter(List<Track> dataSet) {
+    private List<Track> dataSet;
+    private TrackListener trackListener;
+
+    public TopTracksAdapter(List<Track> dataSet, TrackListener trackListener) {
         this.dataSet = dataSet;
+        this.trackListener = trackListener;
     }
 
     @Override
@@ -49,6 +58,14 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
         holder.tvArtistName.setText(track.getArtist().getName());
         holder.tvDuration.setText(StringUtilities.formatSecondsToDuration(track.getDuration()));
         holder.tvListeners.setText(StringUtilities.numberToSuffix(track.getListeners()));
+        //Si al usuario ya le gusta la cancion cambiamos el icono del boton por el corazon rojo
+        Context context = holder.itemView.getContext();
+        if(track.isLove()) {
+            holder.btnLove.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_red_24dp));
+        } else {
+            //En caso contratio se vuelve a poner el icono blanco para evitar error con la reutilizacion del holder
+            holder.btnLove.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_red_24dp));
+        }
     }
 
     @Override
@@ -56,7 +73,7 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
         return dataSet.size();
     }
 
-    public static class TrackViewHolder extends RecyclerView.ViewHolder {
+    public class TrackViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imgTrack;
         TextView tvTrackName;
@@ -74,6 +91,23 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
             tvDuration = itemView.findViewById(R.id.tvDuration);
             btnLove = itemView.findViewById(R.id.btnLove);
             tvListeners = itemView.findViewById(R.id.tvListeners);
+
+            itemView.setOnClickListener(this);
+            btnLove.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            //Obtenemos la posicion del item (track) sobre el cual se genero el evento
+            int positionItem = getAdapterPosition();
+            switch (view.getId()) {
+                case R.id.btnLove:
+                    trackListener.onTrackLoveUnlove(positionItem);
+                    break;
+                default:
+                    trackListener.onTrackSelect(positionItem);
+                    break;
+            }
         }
     }
 

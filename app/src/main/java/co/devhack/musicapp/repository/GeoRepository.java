@@ -1,6 +1,8 @@
 package co.devhack.musicapp.repository;
 
-import co.devhack.musicapp.domain.model.TopTracksResponse;
+import java.util.List;
+
+import co.devhack.musicapp.domain.model.Track;
 
 /**
  * Created by krlosf on 23/04/18.
@@ -8,6 +10,8 @@ import co.devhack.musicapp.domain.model.TopTracksResponse;
 
 public interface GeoRepository {
 
-    TopTracksResponse getTopTracks(String country) throws Exception;
+    List<Track> getTopTracks(String country) throws Exception;
+
+    void insertTopTracks(List<Track> lstTracks) throws Exception;
 
 }

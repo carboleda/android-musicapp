@@ -1,6 +1,8 @@
 package co.devhack.musicapp.domain.usecase.impl;
 
-import co.devhack.musicapp.domain.model.LovedTracksResponse;
+import java.util.List;
+
+import co.devhack.musicapp.domain.model.Track;
 import co.devhack.musicapp.domain.usecase.UserUseCase;
 import co.devhack.musicapp.helpers.Callback;
 import co.devhack.musicapp.helpers.ThreadExecutor;
@@ -20,16 +22,17 @@ public class UserUseCaseImpl implements UserUseCase {
     }
 
     @Override
-    public void getLovedTracks(final String user, final Callback<LovedTracksResponse> callback) {
-        new ThreadExecutor<LovedTracksResponse>()
-                .execute(new ThreadExecutor.Task<LovedTracksResponse>() {
+    public void getLovedTracks(final String user, final Callback<List<Track>> callback) {
+        new ThreadExecutor<List<Track>>()
+                .execute(new ThreadExecutor.Task<List<Track>>() {
                     @Override
-                    public LovedTracksResponse execute() throws Exception {
-                        return userRepository.getLovedTracks(user);
+                    public List<Track> execute() throws Exception {
+                        //Llamo al metodo sincrono del UseCase
+                        return getLovedTracks(user);
                     }
 
                     @Override
-                    public void finish(Exception error, LovedTracksResponse result) {
+                    public void finish(Exception error, List<Track> result) {
                         if(error == null) {
                             callback.success(result);
                         } else {
@@ -38,4 +41,18 @@ public class UserUseCaseImpl implements UserUseCase {
                     }
                 });
     }
+
+    /**
+     * Metodo sincrono para obtener las caciones que le gustan al usuario.
+     * Para usar este metodo debe hacerse el llamado dentro de un hilo
+     * @param user
+     * @return
+     */
+    @Override
+    public List<Track> getLovedTracks(String user) throws Exception {
+        //Aqui iria la logica del metodo getLovedTracks
+        return userRepository.getLovedTracks(user);
+    }
+
+
 }

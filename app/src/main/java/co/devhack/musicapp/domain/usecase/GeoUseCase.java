@@ -1,6 +1,9 @@
 package co.devhack.musicapp.domain.usecase;
 
+import java.util.List;
+
 import co.devhack.musicapp.domain.model.TopTracksResponse;
+import co.devhack.musicapp.domain.model.Track;
 import co.devhack.musicapp.helpers.Callback;
 
 /**
@@ -9,6 +12,6 @@ import co.devhack.musicapp.helpers.Callback;
 
 public interface GeoUseCase {
 
-    void getTopTracks(String country, Callback<TopTracksResponse> callback);
+    void getTopTracks(String country, Callback<List<Track>> callback);
 
 }

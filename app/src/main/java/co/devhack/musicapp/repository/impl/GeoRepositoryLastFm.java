@@ -1,9 +1,11 @@
 package co.devhack.musicapp.repository.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import co.devhack.musicapp.domain.model.TopTracksResponse;
+import co.devhack.musicapp.domain.model.Track;
 import co.devhack.musicapp.helpers.Constants;
 import co.devhack.musicapp.helpers.RetrofitSingleton;
 import co.devhack.musicapp.repository.GeoRepository;
@@ -25,7 +27,7 @@ public class GeoRepositoryLastFm implements GeoRepository {
     }
 
     @Override
-    public TopTracksResponse getTopTracks(String country) throws Exception {
+    public List<Track> getTopTracks(String country) throws Exception {
         Map<String, String> params = new HashMap<>(0);
         String method = "geo.getTopTracks";
         params.put("method", method);
@@ -39,10 +41,20 @@ public class GeoRepositoryLastFm implements GeoRepository {
         Response<TopTracksResponse> response = call.execute();
 
         if(response.isSuccessful()) {
-            return response.body();
+            TopTracksResponse topTracksResponse = response.body();
+            if(topTracksResponse != null) {
+                return topTracksResponse.getTracks().getLstTracks();
+            }
         } else {
             throw new Exception(response.message());
         }
+
+        return null;
+    }
+
+    @Override
+    public void insertTopTracks(List<Track> lstTracks) throws Exception {
+        //NO HACER NADA, SOLO LAST.FM PUEDE INSERTAR CANCIONES
     }
 
 }
