@@ -1,8 +1,8 @@
 package co.devhack.musicapp.presetation.presenter;
 
 import co.devhack.musicapp.domain.model.MobileSessionResponse;
-import co.devhack.musicapp.domain.usecase.LastFmAuthUseCase;
-import co.devhack.musicapp.domain.usecase.impl.LastFmAuthUseCaseImpl;
+import co.devhack.musicapp.domain.usecase.AuthUseCase;
+import co.devhack.musicapp.domain.usecase.impl.AuthUseCaseImpl;
 import co.devhack.musicapp.helpers.Callback;
 import co.devhack.musicapp.presetation.contract.LoginContract;
 
@@ -13,16 +13,16 @@ import co.devhack.musicapp.presetation.contract.LoginContract;
 public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.View view;
-    private LastFmAuthUseCase lastFmAuthUseCase;
+    private AuthUseCase authUseCase;
 
     public LoginPresenter(LoginContract.View view) {
         this.view = view;
-        this.lastFmAuthUseCase = new LastFmAuthUseCaseImpl();
+        this.authUseCase = new AuthUseCaseImpl();
     }
 
     @Override
     public void validateSession() {
-        lastFmAuthUseCase.validateSession(new Callback<Boolean>() {
+        authUseCase.validateSession(new Callback<Boolean>() {
             @Override
             public void success(Boolean isAuth) {
                 if (isAuth) {
@@ -41,7 +41,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void onLogin(String username, String password, boolean remember) {
         view.disableButtons();
 
-        lastFmAuthUseCase.getMobileSession(username, password,
+        authUseCase.getMobileSession(username, password,
                 new Callback<MobileSessionResponse.Session>() {
             @Override
             public void success(MobileSessionResponse.Session session) {

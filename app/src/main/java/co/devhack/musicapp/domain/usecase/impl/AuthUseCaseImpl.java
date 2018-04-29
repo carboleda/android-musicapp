@@ -1,26 +1,26 @@
 package co.devhack.musicapp.domain.usecase.impl;
 
 import co.devhack.musicapp.domain.model.MobileSessionResponse;
-import co.devhack.musicapp.domain.usecase.LastFmAuthUseCase;
+import co.devhack.musicapp.domain.usecase.AuthUseCase;
 import co.devhack.musicapp.domain.usecase.PrefUseCase;
 import co.devhack.musicapp.helpers.Callback;
 import co.devhack.musicapp.helpers.Constants;
 import co.devhack.musicapp.helpers.Globals;
 import co.devhack.musicapp.helpers.ThreadExecutor;
-import co.devhack.musicapp.repository.LastFmAuthRepository;
+import co.devhack.musicapp.repository.AuthRepository;
 import co.devhack.musicapp.repository.impl.AuthRepositoryLastFm;
 
 /**
  * Created by krlosf on 15/04/18.
  */
 
-public class LastFmAuthUseCaseImpl implements LastFmAuthUseCase {
+public class AuthUseCaseImpl implements AuthUseCase {
 
-    private LastFmAuthRepository lastFmAuthRepository;
+    private AuthRepository authRepository;
     private PrefUseCase prefUseCase;
 
-    public LastFmAuthUseCaseImpl() {
-        this.lastFmAuthRepository = new AuthRepositoryLastFm();
+    public AuthUseCaseImpl() {
+        this.authRepository = new AuthRepositoryLastFm();
         this.prefUseCase = new PrefUseCaseImpl();
     }
 
@@ -31,7 +31,7 @@ public class LastFmAuthUseCaseImpl implements LastFmAuthUseCase {
                 .execute(new ThreadExecutor.Task<MobileSessionResponse>() {
                     @Override
                     public MobileSessionResponse execute() throws Exception {
-                        return lastFmAuthRepository.getMobileSession(username, password);
+                        return authRepository.getMobileSession(username, password);
                     }
 
                     @Override

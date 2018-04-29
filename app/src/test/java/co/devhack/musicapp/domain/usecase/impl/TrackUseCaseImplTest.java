@@ -5,11 +5,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import co.devhack.musicapp.domain.model.MobileSessionResponse;
-import co.devhack.musicapp.domain.usecase.LastFmAuthUseCase;
 import co.devhack.musicapp.domain.usecase.TrackUseCase;
 import co.devhack.musicapp.helpers.Callback;
-import co.devhack.musicapp.helpers.Globals;
 
 /**
  * Created by krlosf on 15/04/18.

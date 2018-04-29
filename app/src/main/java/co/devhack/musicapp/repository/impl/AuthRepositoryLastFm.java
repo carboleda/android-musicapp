@@ -8,7 +8,7 @@ import co.devhack.musicapp.domain.usecase.SignCallUseCase;
 import co.devhack.musicapp.domain.usecase.impl.SignCallUseCaseImpl;
 import co.devhack.musicapp.helpers.Constants;
 import co.devhack.musicapp.helpers.RetrofitSingleton;
-import co.devhack.musicapp.repository.LastFmAuthRepository;
+import co.devhack.musicapp.repository.AuthRepository;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.POST;
@@ -18,7 +18,7 @@ import retrofit2.http.QueryMap;
  * Created by krlosf on 15/04/18.
  */
 
-public class AuthRepositoryLastFm implements LastFmAuthRepository {
+public class AuthRepositoryLastFm implements AuthRepository {
 
     interface AuthServices {
         @POST("2.0/")

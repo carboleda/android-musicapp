@@ -1,16 +1,11 @@
 package co.devhack.musicapp.domain.usecase.impl;
 
-import org.junit.Assert;
 import org.junit.Test;
-
-import co.devhack.musicapp.domain.model.MobileSessionResponse;
-import co.devhack.musicapp.domain.usecase.LastFmAuthUseCase;
-import co.devhack.musicapp.helpers.Callback;
 
 /**
  * Created by krlosf on 15/04/18.
  */
-public class LastFmAuthUseCaseImplTest {
+public class AuthUseCaseImplTest {
     @Test
     public void getMobileSession() throws Exception {
         /*LastFmAuthUseCase lastFmAuthUseCase = new LastFmAuthUseCaseImpl();
