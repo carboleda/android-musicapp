@@ -1,9 +1,12 @@
 package co.devhack.musicapp.repository.impl;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import co.devhack.musicapp.domain.model.MobileSessionResponse;
+import co.devhack.musicapp.domain.model.Track;
+import co.devhack.musicapp.domain.model.TrackInfoResponse;
 import co.devhack.musicapp.domain.usecase.SignCallUseCase;
 import co.devhack.musicapp.domain.usecase.impl.SignCallUseCaseImpl;
 import co.devhack.musicapp.helpers.Constants;
@@ -14,7 +17,9 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by krlosf on 15/04/18.
@@ -26,11 +31,14 @@ public class TrackRepositoryLastFm implements TrackRepository {
     interface TrackServices {
         @FormUrlEncoded
         @POST("2.0/")
-        Call<MobileSessionResponse> love(@FieldMap Map<String, String> params);
+        Call<JSONObject> love(@FieldMap Map<String, String> params);
 
         @FormUrlEncoded
         @POST("2.0/")
-        Call<MobileSessionResponse> unlove(@FieldMap Map<String, String> params);
+        Call<JSONObject> unlove(@FieldMap Map<String, String> params);
+
+        @GET("2.0/")
+        Call<TrackInfoResponse> getInfo(@QueryMap Map<String, String> params);
     }
 
     @Override
@@ -50,8 +58,8 @@ public class TrackRepositoryLastFm implements TrackRepository {
 
         TrackServices trackServices = RetrofitSingleton.getInstance().create(TrackServices.class);
 
-        Call<MobileSessionResponse> call = trackServices.love(params);
-        Response<MobileSessionResponse> response = call.execute();
+        Call<JSONObject> call = trackServices.love(params);
+        Response<JSONObject> response = call.execute();
 
         if(response.isSuccessful()) {
             return true;
@@ -77,13 +85,40 @@ public class TrackRepositoryLastFm implements TrackRepository {
 
         TrackServices trackServices = RetrofitSingleton.getInstance().create(TrackServices.class);
 
-        Call<MobileSessionResponse> call = trackServices.unlove(params);
-        Response<MobileSessionResponse> response = call.execute();
+        Call<JSONObject> call = trackServices.unlove(params);
+        Response<JSONObject> response = call.execute();
 
         if(response.isSuccessful()) {
             return true;
         } else {
             throw new Exception(response.message());
         }
+    }
+
+    @Override
+    public Track getInfo(String artist, String track) throws Exception {
+        Map<String, String> params = new HashMap<>(0);
+        String method = "track.getInfo";
+        params.put("method", method);
+        params.put("api_key", Constants.API_KEY);
+        params.put("artist", artist);
+        params.put("track", track);
+        params.put("format", Constants.API_RESPONSE_FORMAT);
+
+        TrackServices trackServices = RetrofitSingleton.getInstance().create(TrackServices.class);
+
+        Call<TrackInfoResponse> call = trackServices.getInfo(params);
+        Response<TrackInfoResponse> response = call.execute();
+
+        if(response.isSuccessful()) {
+            TrackInfoResponse trackInfoResponse = response.body();
+            if(trackInfoResponse != null) {
+                return trackInfoResponse.getTrack();
+            }
+        } else {
+            throw new Exception(response.message());
+        }
+
+        return null;
     }
 }

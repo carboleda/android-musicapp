@@ -2,7 +2,6 @@ package co.devhack.musicapp.domain.usecase;
 
 import java.util.List;
 
-import co.devhack.musicapp.domain.model.LovedTracksResponse;
 import co.devhack.musicapp.domain.model.Track;
 import co.devhack.musicapp.helpers.Callback;
 
@@ -12,8 +11,8 @@ import co.devhack.musicapp.helpers.Callback;
 
 public interface UserUseCase {
 
-    void getLovedTracks(String user, Callback<List<Track>> callback);
+    void getLovedTracks(Callback<List<Track>> callback);
 
-    List<Track> getLovedTracks(String user) throws Exception;
+    List<Track> getLovedTracks() throws Exception;
 
 }

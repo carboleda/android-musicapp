@@ -14,6 +14,7 @@ public class LastFmUtilities {
         public static final String SMALL = "small";
         public static final String MEDIUM = "medium";
         public static final String LARGE = "large";
+        public static final String EXTRALARGE = "extralarge";
     }
 
     public static Image getImageBySize(List<Image> lstImages, String size) {

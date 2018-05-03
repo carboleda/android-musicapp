@@ -12,6 +12,8 @@ public interface GeoRepository {
 
     List<Track> getTopTracks(String country) throws Exception;
 
+    void deleteTopTracks() throws Exception;
+
     void insertTopTracks(List<Track> lstTracks) throws Exception;
 
 }

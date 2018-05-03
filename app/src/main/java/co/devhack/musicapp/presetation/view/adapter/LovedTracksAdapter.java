@@ -23,17 +23,17 @@ import co.devhack.musicapp.helpers.StringUtilities;
  * Created by krlosf on 23/04/18.
  */
 
-public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.TrackViewHolder> {
+public class LovedTracksAdapter extends RecyclerView.Adapter<LovedTracksAdapter.TrackViewHolder> {
 
     public interface TrackListener {
-        void onTrackLoveUnlove(int position);
+        void onTrackUnlove(int position);
         void onTrackSelect(int position);
     }
 
     private List<Track> dataSet;
     private TrackListener trackListener;
 
-    public TopTracksAdapter(List<Track> dataSet, TrackListener trackListener) {
+    public LovedTracksAdapter(List<Track> dataSet, TrackListener trackListener) {
         this.dataSet = dataSet;
         this.trackListener = trackListener;
     }
@@ -47,7 +47,6 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
     @Override
     public void onBindViewHolder(TrackViewHolder holder, int position) {
         Track track = dataSet.get(position);
-        Context context = holder.itemView.getContext();
 
         Image image = LastFmUtilities.getImageBySize(track.getImages(), LastFmUtilities.ImageSize.LARGE);
         if(image != null) {
@@ -57,19 +56,9 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
         }
         holder.tvTrackName.setText(track.getName());
         holder.tvArtistName.setText(track.getArtist().getName());
-
-        //string con datos variables
-        String strMinutes = StringUtilities.formatSecondsToDuration(track.getDuration());
-        holder.tvDuration.setText(context.getString(R.string.minutes, strMinutes));
-
-        holder.tvListeners.setText(StringUtilities.numberToSuffix(track.getListeners()));
         //Si al usuario ya le gusta la cancion cambiamos el icono del boton por el corazon rojo
-        if(track.isLove()) {
-            holder.btnLove.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_red_24dp));
-        } else {
-            //En caso contratio se vuelve a poner el icono blanco para evitar error con la reutilizacion del holder
-            holder.btnLove.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_red_24dp));
-        }
+        Context context = holder.itemView.getContext();
+        holder.btnLove.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_red_24dp));
     }
 
     @Override
@@ -96,6 +85,9 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
             btnLove = itemView.findViewById(R.id.btnLove);
             tvListeners = itemView.findViewById(R.id.tvListeners);
 
+            tvDuration.setVisibility(View.INVISIBLE);
+            tvListeners.setVisibility(View.INVISIBLE);
+
             itemView.setOnClickListener(this);
             btnLove.setOnClickListener(this);
         }
@@ -106,7 +98,7 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
             int positionItem = getAdapterPosition();
             switch (view.getId()) {
                 case R.id.btnLove:
-                    trackListener.onTrackLoveUnlove(positionItem);
+                    trackListener.onTrackUnlove(positionItem);
                     break;
                 default:
                     trackListener.onTrackSelect(positionItem);

@@ -25,8 +25,14 @@ public class Track {
     private Integer duration;
     @ColumnInfo
     private Integer listeners;
+    @ColumnInfo
+    private Integer playcount;
     @Embedded
     private Artist artist;
+    @Ignore
+    private Album album;
+    @Ignore
+    private Wiki wiki;
     @Ignore
     @SerializedName("image")
     private List<Image> images;
@@ -67,12 +73,36 @@ public class Track {
         this.listeners = listeners;
     }
 
+    public Integer getPlaycount() {
+        return playcount;
+    }
+
+    public void setPlaycount(Integer playcount) {
+        this.playcount = playcount;
+    }
+
     public Artist getArtist() {
         return artist;
     }
 
     public void setArtist(Artist artist) {
         this.artist = artist;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Wiki getWiki() {
+        return wiki;
+    }
+
+    public void setWiki(Wiki wiki) {
+        this.wiki = wiki;
     }
 
     public List<Image> getImages() {

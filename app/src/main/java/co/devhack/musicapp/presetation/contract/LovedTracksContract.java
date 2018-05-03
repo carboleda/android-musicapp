@@ -8,7 +8,7 @@ import co.devhack.musicapp.domain.model.Track;
  * Created by krlosf on 23/04/18.
  */
 
-public interface TopTracksContract {
+public interface LovedTracksContract {
 
     interface View {
 
@@ -17,8 +17,6 @@ public interface TopTracksContract {
         void hideLoadingIndicator();
 
         void refreshTracks();
-
-        void showTrackInfo(String artist, String track);
 
         void showLoginErrorMessage(Throwable error);
 
@@ -37,9 +35,7 @@ public interface TopTracksContract {
          */
         List<Track> getTracks();
 
-        void onLoveUnlove(int position);
-
-        void onTrackSelect(int position);
+        void onUnlove(int position);
 
     }
 

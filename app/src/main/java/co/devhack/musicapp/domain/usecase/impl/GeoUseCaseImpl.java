@@ -6,7 +6,6 @@ import co.devhack.musicapp.domain.model.Track;
 import co.devhack.musicapp.domain.usecase.GeoUseCase;
 import co.devhack.musicapp.domain.usecase.UserUseCase;
 import co.devhack.musicapp.helpers.Callback;
-import co.devhack.musicapp.helpers.Globals;
 import co.devhack.musicapp.helpers.ThreadExecutor;
 import co.devhack.musicapp.repository.GeoRepository;
 import co.devhack.musicapp.repository.impl.GeoRepositoryLastFm;
@@ -21,7 +20,7 @@ public class GeoUseCaseImpl implements GeoUseCase {
     private GeoRepository geoRepository;
     private GeoRepository geoRepositorySQLite;
     private UserUseCase userUseCase;
-    private boolean hayConexion = false;
+    private boolean hayConexion = true;
 
     public GeoUseCaseImpl() {
         this.geoRepository = new GeoRepositoryLastFm();
@@ -39,7 +38,7 @@ public class GeoUseCaseImpl implements GeoUseCase {
                             //Este es el top de canciones
                             List<Track> lstTopTracks = geoRepository.getTopTracks(country);
                             //Estas son las caciones que le gustan al usuario
-                            List<Track> lstLovedTracks = userUseCase.getLovedTracks(Globals.USERNAME);
+                            List<Track> lstLovedTracks = userUseCase.getLovedTracks();
 
                             //Se recorre la lista de caciones que le gustan al usuario
                             for (Track loveTrack : lstLovedTracks) {
@@ -55,6 +54,7 @@ public class GeoUseCaseImpl implements GeoUseCase {
                                 }
                             }
 
+                            geoRepositorySQLite.deleteTopTracks();
                             geoRepositorySQLite.insertTopTracks(lstTopTracks);
 
                             return lstTopTracks;

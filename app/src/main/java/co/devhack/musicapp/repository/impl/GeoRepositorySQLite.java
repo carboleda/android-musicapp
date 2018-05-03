@@ -1,10 +1,10 @@
 package co.devhack.musicapp.repository.impl;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import java.util.Arrays;
 import java.util.List;
 
 import co.devhack.musicapp.domain.model.Track;
@@ -26,6 +26,9 @@ public class GeoRepositorySQLite implements GeoRepository {
         @Insert
         void insertAll(Track... tracks);
 
+        @Delete()
+        void deletedAll(List<Track> topTracks);
+
     }
 
     @Override
@@ -33,6 +36,14 @@ public class GeoRepositorySQLite implements GeoRepository {
         AppDatabaseSingleton db = AppDatabaseSingleton.getInstance();
         TrackDao dao = db.geoTrackDao();
         return dao.getAll();
+    }
+
+    @Override
+    public void deleteTopTracks() throws Exception {
+        AppDatabaseSingleton db = AppDatabaseSingleton.getInstance();
+        TrackDao dao = db.geoTrackDao();
+
+        dao.deletedAll(dao.getAll());
     }
 
     @Override

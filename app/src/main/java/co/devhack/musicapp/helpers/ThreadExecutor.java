@@ -1,39 +1,48 @@
 package co.devhack.musicapp.helpers;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import android.os.AsyncTask;
 
 /**
  * Created by krlosf on 5/12/17.
  */
 
-public class ThreadExecutor<T> {
+public class ThreadExecutor<T> extends AsyncTask<Void, Void, Object> {
+    private Task<T> task;
+
     public ThreadExecutor() {
 
     }
 
-    public void execute(final Task<T> task) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<T> future = executor.submit(new Callable<T>() {
-            @Override
-            public T call() throws Exception {
-                return task.execute();
-            }
-        });
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        //Lo que quiero hacer antes de entrar al hilo secundario
+    }
 
+    @Override
+    protected Object doInBackground(Void... objects) {
         try {
-            T result = future.get();
-            if(result != null && future.isDone()) {
-                task.finish(null, result);
-            } else {
-                task.finish(null, null);
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            task.finish(e, null);
+            //Aqui en el hilo secundario (fuera del MainThread)
+            //AQUI NO SE PUEDE LLAMAR A NINGUN METODO QUE INTERACTUE CON LA INTERFACE DE USUARIO
+            return task.execute();
+        } catch (Exception e) {
+            return e;
         }
+    }
+
+    @Override
+    protected void onPostExecute(Object result) {
+        super.onPostExecute(result);
+        if(result instanceof Throwable) {
+            task.finish((Exception) result, null);
+        } else {
+            task.finish(null, (T) result);
+        }
+    }
+
+    public void execute(Task<T> task) {
+        this.task = task;
+        super.execute();
     }
 
     public interface Task<T> {

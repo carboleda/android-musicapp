@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import co.devhack.musicapp.R;
+import co.devhack.musicapp.presetation.view.fragment.LovedTracksFragment;
 import co.devhack.musicapp.presetation.view.fragment.TopTracksFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -27,15 +28,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -92,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_top_tracks) {
             replaceFragment(TopTracksFragment.getInstance(), true);
         } else if (id == R.id.nav_loved_tracks) {
-            //TODO replaceFragment(LovedTracksFragment.getInstance(), true);
+            replaceFragment(LovedTracksFragment.getInstance(), true);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

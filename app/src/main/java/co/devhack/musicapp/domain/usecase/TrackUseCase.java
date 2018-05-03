@@ -11,8 +11,10 @@ public interface TrackUseCase {
 
     void loveUnlove(Track track, Callback<Boolean> callback);
 
-    void love(String artist, String track, Callback<Boolean> callback);
+    void love(Track track, Callback<Boolean> callback);
 
-    void unlove(String artist, String track, Callback<Boolean> callback);
+    void unlove(Track track, Callback<Boolean> callback);
+
+    void getInfo(String artist, String track, Callback<Track> callback);
 
 }

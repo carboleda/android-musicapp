@@ -53,6 +53,11 @@ public class GeoRepositoryLastFm implements GeoRepository {
     }
 
     @Override
+    public void deleteTopTracks() throws Exception {
+        //NO HACER NADA, SOLO LAST.FM PUEDE ELIMIANR CANCIONES
+    }
+
+    @Override
     public void insertTopTracks(List<Track> lstTracks) throws Exception {
         //NO HACER NADA, SOLO LAST.FM PUEDE INSERTAR CANCIONES
     }

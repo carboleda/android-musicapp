@@ -4,27 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.devhack.musicapp.domain.model.Track;
-import co.devhack.musicapp.domain.usecase.GeoUseCase;
 import co.devhack.musicapp.domain.usecase.TrackUseCase;
-import co.devhack.musicapp.domain.usecase.impl.GeoUseCaseImpl;
+import co.devhack.musicapp.domain.usecase.UserUseCase;
 import co.devhack.musicapp.domain.usecase.impl.TrackUseCaseImpl;
+import co.devhack.musicapp.domain.usecase.impl.UserUseCaseImpl;
 import co.devhack.musicapp.helpers.Callback;
-import co.devhack.musicapp.presetation.contract.TopTracksContract;
+import co.devhack.musicapp.presetation.contract.LovedTracksContract;
 
 /**
  * Created by krlosf on 23/04/18.
  */
 
-public class TopTracksPresenter implements TopTracksContract.Presenter {
+public class LovedTracksPresenter implements LovedTracksContract.Presenter {
 
-    private TopTracksContract.View view;
-    private GeoUseCase geoUseCase;
+    private LovedTracksContract.View view;
+    private UserUseCase userUseCase;
     private TrackUseCase trackUseCase;
     private final List<Track> lstTracks;
 
-    public TopTracksPresenter(TopTracksContract.View view) {
+    public LovedTracksPresenter(LovedTracksContract.View view) {
         this.view = view;
-        this.geoUseCase = new GeoUseCaseImpl();
+        this.userUseCase = new UserUseCaseImpl();
         this.trackUseCase = new TrackUseCaseImpl();
         this.lstTracks = new ArrayList<>(0);
     }
@@ -33,7 +33,7 @@ public class TopTracksPresenter implements TopTracksContract.Presenter {
     public void loadTracks() {
         //TODO CAMBIAR A CONSTANTE Y POSTERIORMENTE IDENTIFICAR EL PAIS POR GPS
         view.showLoadingIndicator();
-        geoUseCase.getTopTracks("colombia", new Callback<List<Track>>() {
+        userUseCase.getLovedTracks(new Callback<List<Track>>() {
             @Override
             public void success(List<Track> result) {
                 //Actualizar la lista con los nuevos items
@@ -58,10 +58,10 @@ public class TopTracksPresenter implements TopTracksContract.Presenter {
     }
 
     @Override
-    public void onLoveUnlove(int position) {
+    public void onUnlove(int position) {
         Track track = lstTracks.get(position);
         view.showLoadingIndicator();
-        trackUseCase.loveUnlove(track, new Callback<Boolean>() {
+        trackUseCase.unlove(track, new Callback<Boolean>() {
             @Override
             public void success(Boolean result) {
                 view.hideLoadingIndicator();
@@ -74,11 +74,5 @@ public class TopTracksPresenter implements TopTracksContract.Presenter {
                 view.showLoginErrorMessage(error);
             }
         });
-    }
-
-    @Override
-    public void onTrackSelect(int position) {
-        Track track = lstTracks.get(position);
-        view.showTrackInfo(track.getArtist().getName(), track.getName());
     }
 }
