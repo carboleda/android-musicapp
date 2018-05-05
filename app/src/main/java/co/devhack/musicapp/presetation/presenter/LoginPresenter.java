@@ -25,8 +25,12 @@ public class LoginPresenter implements LoginContract.Presenter {
         authUseCase.validateSession(new Callback<Boolean>() {
             @Override
             public void success(Boolean isAuth) {
+                //Si el usuario ya esta autenticado
                 if (isAuth) {
                     view.goToMain();
+                } else {
+                    //Si no esta autenticado se intenta obtener el usuarios recordado
+                    getRememberedUser();
                 }
             }
 
@@ -41,7 +45,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void onLogin(String username, String password, boolean remember) {
         view.disableButtons();
 
-        authUseCase.getMobileSession(username, password,
+        authUseCase.getMobileSession(username, password, remember,
                 new Callback<MobileSessionResponse.Session>() {
             @Override
             public void success(MobileSessionResponse.Session session) {
@@ -60,5 +64,23 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void onDontHaveAccount() {
         view.goToCreateAccount();
+    }
+
+    private void getRememberedUser() {
+        authUseCase.getRememberedUser(new Callback<String>() {
+            @Override
+            public void success(String username) {
+                //Si hay un usuario recordado
+                if(username != null) {
+                    //Se muestra en la pantalla
+                    view.showRememberedUser(username);
+                }
+            }
+
+            @Override
+            public void error(Exception error) {
+                view.showLoginErrorMessage(error);
+            }
+        });
     }
 }

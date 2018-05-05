@@ -9,8 +9,13 @@ import co.devhack.musicapp.helpers.Callback;
 
 public interface AuthUseCase {
 
-    void getMobileSession(String username, String password, Callback<MobileSessionResponse.Session> callback);
+    void getMobileSession(String username, String password, boolean remember,
+                          Callback<MobileSessionResponse.Session> callback);
 
     void validateSession(Callback<Boolean> callback);
+
+    void closeSession(Callback<Boolean> callback);
+
+    void getRememberedUser(Callback<String> callback);
 
 }

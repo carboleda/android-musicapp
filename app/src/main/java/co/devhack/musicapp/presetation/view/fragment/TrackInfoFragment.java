@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import co.devhack.musicapp.helpers.LastFmUtilities;
 import co.devhack.musicapp.helpers.StringUtilities;
 import co.devhack.musicapp.presetation.contract.TrackInfoContract;
 import co.devhack.musicapp.presetation.presenter.TrackInfoPresenter;
+import co.devhack.musicapp.presetation.view.activity.MainActivity;
 
 /**
  * Created by krlosf on 29/04/18.
@@ -32,6 +34,7 @@ public class TrackInfoFragment extends Fragment implements TrackInfoContract.Vie
     public static final String ARG_ARTIST = "artist";
     public static final String ARG_TRACK = "track";
 
+    private MainActivity mainActivity;
     private TrackInfoContract.Presenter presenter;
     private ProgressBar pbLoadingIndicador;
     private ImageView imgTrack;
@@ -57,6 +60,10 @@ public class TrackInfoFragment extends Fragment implements TrackInfoContract.Vie
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmant_track_info, container, false);
 
+
+        mainActivity = ((MainActivity)getActivity());
+        mainActivity.setEnableBackButton(true);
+
         //La obtencion de las referencias del layout debe hacerse en este metodo
         //en lugar del onCreate, ya que aqui se infla el layout y el onCreate se
         //ejecuta antes que el onCreateView
@@ -78,10 +85,19 @@ public class TrackInfoFragment extends Fragment implements TrackInfoContract.Vie
                 String artist = getArguments().getString(ARG_ARTIST);
                 String track = getArguments().getString(ARG_TRACK);
                 presenter.loadInfo(artist, track);
+
+                //Se pone el nombre de la cancion como titulo
+                mainActivity.getSupportActionBar().setTitle(track);
             }
         }
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        mainActivity.setEnableBackButton(false);
+        super.onDestroyView();
     }
 
     @Override
@@ -106,26 +122,28 @@ public class TrackInfoFragment extends Fragment implements TrackInfoContract.Vie
     @Override
     public void showInfo(Track track) {
         Context context = getContext();
-        Image image = LastFmUtilities.getImageBySize(track.getAlbum().getLstImages(),
-                LastFmUtilities.ImageSize.EXTRALARGE);
-        if(image != null) {
-            Glide.with(context)
-                    .load(image.getUrl())
-                    .into(imgTrack);
-        }
-        tvTrackName.setText(track.getName());
-        tvArtistName.setText(track.getArtist().getName());
-        tvListeners.setText(StringUtilities.numberToSuffix(track.getListeners()));
-        tvPlayCount.setText(StringUtilities.numberToSuffix(track.getPlaycount()));
-        if(track.getWiki() != null) {
-            tvSummary.setText(track.getWiki().getSummary());
-        }
-        //Si al usuario ya le gusta la cancion cambiamos el icono del boton por el corazon rojo
-        if(track.isLove()) {
-            btnLove.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_red_24dp));
-        } else {
-            //En caso contratio se vuelve a poner el icono blanco
-            btnLove.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_red_24dp));
+        if(context != null) {
+            Image image = LastFmUtilities.getImageBySize(track.getAlbum().getLstImages(),
+                    LastFmUtilities.ImageSize.EXTRALARGE);
+            if (image != null) {
+                Glide.with(context)
+                        .load(image.getUrl())
+                        .into(imgTrack);
+            }
+            tvTrackName.setText(track.getName());
+            tvArtistName.setText(track.getArtist().getName());
+            tvListeners.setText(StringUtilities.numberToSuffix(track.getListeners()));
+            tvPlayCount.setText(getString(R.string.play_counts, StringUtilities.numberToSuffix(track.getPlaycount())));
+            if (track.getWiki() != null) {
+                tvSummary.setText(Html.fromHtml(track.getWiki().getSummary()));
+            }
+            //Si al usuario ya le gusta la cancion cambiamos el icono del boton por el corazon rojo
+            if (track.isLove()) {
+                btnLove.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_red_24dp));
+            } else {
+                //En caso contratio se vuelve a poner el icono blanco
+                btnLove.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_red_24dp));
+            }
         }
     }
 

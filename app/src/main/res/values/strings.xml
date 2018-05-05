@@ -19,5 +19,7 @@
     <string name="top_tracks">Top canciones</string>
     <string name="my_loved_tracks">Mis canciones favoritas</string>
     <string name="minutes">%1$s mins</string>
+    <string name="play_counts">%1$s reproducciones</string>
     <string name="nombre_apellido">Nombre: %1$s Apllido: %2$s y Edad: %3$d</string>
+    <string name="exit_session">Cerrar sesión</string>
 </resources>

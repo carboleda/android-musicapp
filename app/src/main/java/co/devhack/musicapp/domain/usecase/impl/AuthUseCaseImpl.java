@@ -25,7 +25,7 @@ public class AuthUseCaseImpl implements AuthUseCase {
     }
 
     @Override
-    public void getMobileSession(final String username, final String password,
+    public void getMobileSession(final String username, final String password, final boolean remember,
                                  final Callback<MobileSessionResponse.Session> callback) {
         new ThreadExecutor<MobileSessionResponse>()
                 .execute(new ThreadExecutor.Task<MobileSessionResponse>() {
@@ -46,6 +46,7 @@ public class AuthUseCaseImpl implements AuthUseCase {
                                 prefUseCase.setData(Constants.PrefKeys.USERNAME, result.getSession().getUsername());
                                 //Me indica que el usuario ya esta autenticado
                                 prefUseCase.setData(Constants.PrefKeys.IS_AUTH, true);
+                                prefUseCase.setData(Constants.PrefKeys.REMEMBER, remember);
 
                                 callback.success(result.getSession());
                             } catch (Exception e) {
@@ -68,6 +69,34 @@ public class AuthUseCaseImpl implements AuthUseCase {
                 Globals.USERNAME = prefUseCase.getData(Constants.PrefKeys.USERNAME, null, String.class);
             }
             callback.success(isAuth);
+        } catch (Exception error) {
+            callback.error(error);
+        }
+    }
+
+    @Override
+    public void closeSession(Callback<Boolean> callback) {
+        try {
+            //Se obtiene el indicador de para saber si el usuario selecciono recordar al iniciar sesion
+            Boolean remember = prefUseCase.getData(Constants.PrefKeys.REMEMBER, false, Boolean.class);
+            //Si selecciono recordar solo se cambia el flag is_auth
+            if(remember) {
+                prefUseCase.setData(Constants.PrefKeys.IS_AUTH, false);
+            } else {
+                //De lo contrario se elimina toda la data almacenada
+                prefUseCase.clearAllData();
+            }
+            callback.success(true);
+        } catch (Exception error) {
+            callback.error(error);
+        }
+    }
+
+    @Override
+    public void getRememberedUser(Callback<String> callback) {
+        try {
+            String username = prefUseCase.getData(Constants.PrefKeys.USERNAME, null, String.class);
+            callback.success(username);
         } catch (Exception error) {
             callback.error(error);
         }

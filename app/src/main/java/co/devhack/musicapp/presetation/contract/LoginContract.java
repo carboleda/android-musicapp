@@ -18,6 +18,8 @@ public interface LoginContract {
 
         void goToCreateAccount();
 
+        void showRememberedUser(String username);
+
     }
 
     interface Presenter {

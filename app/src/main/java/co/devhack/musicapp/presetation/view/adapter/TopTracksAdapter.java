@@ -32,15 +32,23 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
 
     private List<Track> dataSet;
     private TrackListener trackListener;
+    private boolean displayAsList;
+    private int layoutResource;
 
     public TopTracksAdapter(List<Track> dataSet, TrackListener trackListener) {
         this.dataSet = dataSet;
         this.trackListener = trackListener;
+        this.displayAsList = true;
+    }
+
+    public void setDisplayAsList(boolean displayAsList) {
+        this.displayAsList = displayAsList;
+        layoutResource = displayAsList ? R.layout.view_track_item : R.layout.view_track_item_grid;
     }
 
     @Override
     public TrackViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_track_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(layoutResource, parent, false);
         return new TrackViewHolder(itemView);
     }
 
@@ -49,7 +57,8 @@ public class TopTracksAdapter extends RecyclerView.Adapter<TopTracksAdapter.Trac
         Track track = dataSet.get(position);
         Context context = holder.itemView.getContext();
 
-        Image image = LastFmUtilities.getImageBySize(track.getImages(), LastFmUtilities.ImageSize.LARGE);
+        String size = displayAsList ? LastFmUtilities.ImageSize.LARGE : LastFmUtilities.ImageSize.EXTRALARGE;
+        Image image = LastFmUtilities.getImageBySize(track.getImages(), size);
         if(image != null) {
             Glide.with(holder.itemView.getContext())
                     .load(image.getUrl())

@@ -19,5 +19,6 @@ public class Constants {
         public static final String SESSION_KEY = "session_key";
         public static final String USERNAME = "username";
         public static final String IS_AUTH = "is_auth";
+        public static final String REMEMBER = "remember";
     }
 }

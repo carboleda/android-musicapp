@@ -2,52 +2,67 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="@dimen/space_xsmall">
 
-    <ImageView android:id="@+id/imgTrack"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minWidth="100dp"
-        android:minHeight="100dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        <ImageView android:id="@+id/imgTrack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:minWidth="100dp"
+            android:minHeight="200dp"
+            android:src="@mipmap/ic_launcher"/>
 
-        <TextView android:id="@+id/tvTrackName"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Losing my religion"
-            android:textStyle="bold"/>
+            android:layout_gravity="bottom"
+            android:padding="@dimen/space_medium"
+            android:background="#90000000">
 
-        <TextView android:id="@+id/tvArtistName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="REM"
-            android:layout_below="@id/tvTrackName"/>
+            <TextView android:id="@+id/tvTrackName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Losing my religion"
+                android:textStyle="bold"
+                android:textColor="@color/colorTextViewGrid"/>
 
-        <TextView android:id="@+id/tvDuration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="3:52 mins"
-            android:layout_below="@id/tvArtistName"/>
+            <TextView android:id="@+id/tvArtistName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="REM"
+                android:textColor="@color/colorTextViewGrid"
+                android:layout_below="@id/tvTrackName"/>
 
-        <ImageView android:id="@+id/btnLove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_favorite_red_24dp"
-            android:layout_alignBottom="@+id/tvDuration"
-            android:layout_alignParentEnd="true" />
+            <TextView android:id="@+id/tvDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3:52 mins"
+                android:textColor="@color/colorTextViewGrid"
+                android:layout_below="@id/tvArtistName"/>
 
-        <TextView android:id="@+id/tvListeners"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1.140k"
-            android:layout_toLeftOf="@id/btnLove"
-            android:layout_alignBottom="@+id/tvDuration" />
+            <ImageView android:id="@+id/btnLove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_favorite_red_24dp"
+                android:layout_alignBottom="@+id/tvDuration"
+                android:layout_alignParentEnd="true" />
 
-    </RelativeLayout>
+            <TextView android:id="@+id/tvListeners"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.140k"
+                android:textColor="@color/colorTextViewGrid"
+                android:layout_toLeftOf="@id/btnLove"
+                android:layout_alignBottom="@+id/tvDuration"
+                android:layout_marginEnd="@dimen/space_small" />
+
+        </RelativeLayout>
+    </FrameLayout>
 
 </FrameLayout>

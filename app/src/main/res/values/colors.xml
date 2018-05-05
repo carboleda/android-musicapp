@@ -3,4 +3,5 @@
     <color name="colorPrimary">#604edf</color>
     <color name="colorPrimaryDark">#392aa7</color>
     <color name="colorAccent">#d91ee2</color>
+    <color name="colorTextViewGrid">#ffffff</color>
 </resources>

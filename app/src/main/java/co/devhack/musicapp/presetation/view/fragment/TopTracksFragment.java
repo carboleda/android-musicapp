@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -31,6 +35,9 @@ public class TopTracksFragment extends Fragment implements TopTracksContract.Vie
     private TopTracksContract.Presenter presenter;
     private RecyclerView rvTopTracks;
     private ProgressBar pbLoadingIndicador;
+    private TopTracksAdapter topTracksAdapter;
+    private LinearLayoutManager linearLayoutManager;
+    private GridLayoutManager gridLayoutManager;
 
     public TopTracksFragment() {
         // Required empty public constructor
@@ -47,6 +54,7 @@ public class TopTracksFragment extends Fragment implements TopTracksContract.Vie
         View view = inflater.inflate(R.layout.fragment_top_tracks, container, false);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.top_tracks);
+        setHasOptionsMenu(true);
 
         //La obtencion de las referencias del layout debe hacerse en este metodo
         //en lugar del onCreate, ya que aqui se infla el layout y el onCreate se
@@ -56,11 +64,17 @@ public class TopTracksFragment extends Fragment implements TopTracksContract.Vie
 
             pbLoadingIndicador = getActivity().findViewById(R.id.pbLoadingIndicador);
             rvTopTracks = view.findViewById(R.id.rvTopTracks);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-            rvTopTracks.setLayoutManager(layoutManager);
 
-            TopTracksAdapter topTracksAdapter = new TopTracksAdapter(presenter.getTracks(), this);
+            linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+            gridLayoutManager = new GridLayoutManager(getContext(), 2);
+
+
+            rvTopTracks.setLayoutManager(linearLayoutManager);
+
+            topTracksAdapter = new TopTracksAdapter(presenter.getTracks(), this);
+            topTracksAdapter.setDisplayAsList(true);
             rvTopTracks.setAdapter(topTracksAdapter);
 
             initLocation();
@@ -69,6 +83,27 @@ public class TopTracksFragment extends Fragment implements TopTracksContract.Vie
         }
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.top_tracks_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_display:
+                boolean isDisplayList = !item.isChecked();
+                item.setIcon(isDisplayList
+                        ? R.drawable.ic_view_list_black_24dp : R.drawable.ic_view_module_black_24dp);
+                item.setChecked(isDisplayList);
+                changeDisplay(isDisplayList);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -125,6 +160,13 @@ public class TopTracksFragment extends Fragment implements TopTracksContract.Vie
             String[] permissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
             requestPermissions(permissions, REQUEST_LOCATION);
         }
+    }
+
+    private void changeDisplay(boolean isDisplayList) {
+        rvTopTracks.setLayoutManager(isDisplayList ? linearLayoutManager : gridLayoutManager);
+        topTracksAdapter = new TopTracksAdapter(presenter.getTracks(), this);
+        topTracksAdapter.setDisplayAsList(isDisplayList);
+        rvTopTracks.setAdapter(topTracksAdapter);
     }
 
     @Override

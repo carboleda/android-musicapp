@@ -3,11 +3,15 @@
 
     <item
         android:id="@+id/nav_top_tracks"
-        android:icon="@drawable/ic_menu_camera"
+        android:icon="@drawable/ic_music_note_black_24dp"
         android:title="@string/top_tracks" />
     <item
         android:id="@+id/nav_loved_tracks"
-        android:icon="@drawable/ic_menu_gallery"
+        android:icon="@drawable/ic_library_music_black_24dp"
         android:title="@string/my_loved_tracks" />
+    <item
+        android:id="@+id/nav_close_session"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:title="@string/exit_session" />
 
 </menu>

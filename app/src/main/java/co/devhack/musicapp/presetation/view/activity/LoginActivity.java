@@ -84,6 +84,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         startActivity(intent);
     }
 
+    @Override
+    public void showRememberedUser(String username) {
+        etUser.setText(username);
+    }
+
     private void onLogin() {
         String username = etUser.getText().toString();
         String password = etPassword.getText().toString();
